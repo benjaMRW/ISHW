@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home - BHS Help{% endblock %}
+{% block page_title %}New Country, New School, No Problem{% endblock %}
+
+{% block content %}
+<center><div>
+  <div class="intro-text">
+    <p>Starting school in a new country can be confusing. This website helps international students navigate the New Zealand education system with easy-to-use tools.</p>
+  </div>
+
+  <div class="button-rows">
+    <div class="button-row top-row">
+      <a href="/map" class="feature-button">
+        <div class="button-icon">🗺️</div>
+        <div class="button-text">Interactive School Map</div>
+      </a>
+      
+      <a href="/subjects" class="feature-button">
+        <div class="button-icon">📚</div>
+        <div class="button-text">Subject Information</div>
+      </a>
+      
+      <a href="/student" class="feature-button">
+        <div class="button-icon">🎓</div>
+        <div class="button-text">Student Help</div>
+      </a>
+      
+      <a href="/tutors" class="feature-button">
+        <div class="button-icon">🧮</div>
+        <div class="button-text">Tutors</div>
+      </a>
+    </div>
+    
+    <div class="button-row bottom-row">
+      <a href="/connect" class="feature-button">
+        <div class="button-icon">🤖</div>
+        <div class="button-text">BHS AI</div>
+      </a>
+      
+      <a href="/career" class="feature-button">
+        <div class="button-icon">🎯</div>
+        <div class="button-text">Career Information</div>
+      </a>
+      
+      <a href="/notices" class="feature-button">
+        <div class="button-icon">🔔</div>
+        <div class="button-text">School Notices</div>
+      </a>
+      
+      <!-- Empty button to maintain 4 items if needed -->
+      <a href="/feedback" class="feature-button placeholder">
+        <div class="button-icon">➕</div>
+        <div class="button-text">leave ideas!</div>
+      </a>
+    </div>
+  </div>
+</div></center>
+{% endblock %}

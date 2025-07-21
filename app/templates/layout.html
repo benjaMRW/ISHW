@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <header class="header">
+    <div class="top-section">
+      <div class="logo-title">
+        <img src="{{ url_for('static', filename='image/BurnsideLogo.png') }}" alt="Burnside High School Logo" class="logo">
+        <div class="site-title">{% block page_title %}Welcome{% endblock %}</div>
+      </div>
+      
+    </div>
+    <div>
+{% if request.path == '/' and session.student_number %}
+<div class="auth-buttons">
+  <a href="/profile" class="btn btn--primary">profile</a>
+  <a href="{{ url_for('logout') }}" class="btn btn--secondary">Log out</a>
+</div>
+{% elif request.path == '/' %}
+  <div class="auth-buttons">
+
+  <div id="period-bar">
+  ⏳ Loading current period info...
+  </div>
+
+      <a href="/register" class="btn btn--primary">Register</a>
+      <a href="/login" class="btn btn--secondary">Login</a>
+  </div>
+{% endif %}
+
+    </div>
+  </header>
+
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>© 2025 Burnside High School Help</footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("navMenu");
+    menu.classList.toggle("show");
+  }
+
+  function toggleDropdown() {
+    const dropdown = document.querySelector(".dropdown");
+    dropdown.classList.toggle("show");
+  }
+
+  // Optional: Click outside to close dropdown
+  window.onclick = function(e) {
+    if (!e.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown");
+      for (let d of dropdowns) {
+        d.classList.remove('show');
+      }
+    }
+  }
+
+async function updatePeriodBar() {
+    try {
+      const res = await fetch("/get_next_period_info");
+      const data = await res.json();
+
+      const bar = document.getElementById("period-bar");
+
+      if (!data.current_period && !data.next_period) {
+        bar.textContent = "🎓 No school right now";
+        return;
+      }
+
+      const current = data.current_period || "Free Time";
+      const next = data.next_period || "End of Day";
+
+      const minsLeft = Math.floor((data.time_until_current_period_ends_seconds || 0) / 60);
+      const secsLeft = Math.floor((data.time_until_current_period_ends_seconds || 0) % 60);
+
+      bar.textContent = `🕒 ${current} — ends in ${minsLeft}m ${secsLeft}s | Next: ${next}`;
+    } catch (err) {
+      console.error("Failed to load period info:", err);
+    }
+  }
+
+  updatePeriodBar();
+  setInterval(updatePeriodBar, 30000); // update every 30 seconds
+</script>
+</body>
+</html>

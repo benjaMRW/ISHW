@@ -1,0 +1,241 @@
+{% extends 'layout.html' %}
+
+{% block title %}Subjects{% endblock %}
+{% block page_title %}Subject Information{% endblock %}
+
+{% block content %}
+<div class="career-advisor">
+    <h2>Career Pathway Advisor</h2>
+    <p class="disclaimer">Note: These recommendations provide general guidance and should be combined with personalized advice.</p>
+    <p class="intro">Discover which subjects align best with your career aspirations and get personalized recommendations.</p>
+    
+    <div class="career-form">
+        <div class="form-group">
+            <label for="career">Select your career interest:</label>
+            <select id="career" class="form-control">
+                <option value="">-- Choose a career path --</option>
+                <option value="engineering">Engineering</option>
+                <option value="medicine">Medicine/Healthcare</option>
+                <option value="it">Information Technology</option>
+                <option value="business">Business/Commerce</option>
+                <option value="law">Law</option>
+                <option value="arts">Arts/Creative Fields</option>
+                <option value="education">Education</option>
+                <option value="other">Other Careers</option>
+            </select>
+        </div>
+        
+        <button class="submit-btn primary-btn" onclick="suggestSubjects()">Get Subject Recommendations</button>
+    </div>
+    
+    <div id="career-results" class="results-container">
+        <div class="career-card placeholder-card">
+            <div class="card-content">
+                <i class="icon">💡</i>
+                <h3>Start Exploring Career Options</h3>
+                <p>Select a career path above to see recommended subjects and pathway information.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="career-support">
+        <h3>Need More Guidance?</h3>
+        <p>If you're unsure about your career path or need help choosing subjects, our Career Department offers:</p>
+        <ul>
+            <li>One-on-one career counseling</li>
+            <li>Personality and aptitude tests</li>
+            <li>University and vocational guidance</li>
+            <li>Subject selection workshops</li>
+        </ul>
+        
+        <div class="contact-box">
+            <div class="contact-method">
+                <i class="icon">📧</i>
+                <a href="mailto:careers@burnside.school.nz">careers@burnside.school.nz</a>
+            </div>
+            <div class="contact-method">
+                <i class="icon">📞</i>
+                <span>(03) 123-4567</span>
+            </div>
+            <div class="contact-method">
+                <i class="icon">📍</i>
+                <span>Student Services Centre, Room 42</span>
+            </div>
+        </div>
+        
+        <down><button class="appointment-btn secondary-btn" onclick="location.href='mailto:careers@burnside.school.nz?subject=Career Appointment Request'">
+            Request Career Appointment
+        </button></down>
+    </div>
+</div>
+
+<script>
+    // Enhanced career to subjects mapping
+    const careerPathways = {
+        engineering: {
+            essential: ["Mathematics with Calculus", "Physics"],
+            recommended: ["Chemistry", "Design and Visual Communication", "Digital Technologies"],
+            skills: ["Problem-solving", "Analytical thinking", "Technical drawing"],
+            info: "Engineering requires strong mathematical and scientific skills. Consider joining robotics club or entering engineering competitions to build your experience.",
+            nextSteps: ["Attend STEM career fairs", "Try engineering summer camps", "Shadow an engineer"]
+        },
+        medicine: {
+            essential: ["Biology", "Chemistry"],
+            recommended: ["Physics", "Health Education", "Statistics"],
+            skills: ["Scientific reasoning", "Empathy", "Attention to detail"],
+            info: "Medical pathways are competitive. Volunteer at healthcare facilities and develop strong research skills alongside your science subjects.",
+            nextSteps: ["Volunteer in healthcare", "Join science olympiad", "Read medical journals"]
+        },
+        it: {
+            essential: ["Digital Technologies"],
+            recommended: ["Mathematics", "Design and Visual Communication", "Physics"],
+            skills: ["Logical thinking", "Creativity", "Continuous learning"],
+            info: "Build a portfolio of projects (websites, apps, games) to showcase your skills. Participate in hackathons and coding competitions.",
+            nextSteps: ["Learn programming online", "Build a personal project", "Join coding club"]
+        },
+        business: {
+            essential: ["Mathematics", "English"],
+            recommended: ["Accounting", "Economics", "Business Studies"],
+            skills: ["Communication", "Financial literacy", "Leadership"],
+            info: "Develop both analytical and people skills. Consider starting a small business or joining DECA to gain practical experience.",
+            nextSteps: ["Join business club", "Start small business", "Attend entrepreneur talks"]
+        },
+        law: {
+            essential: ["English"],
+            recommended: ["History", "Classical Studies", "Media Studies"],
+            skills: ["Critical thinking", "Persuasive writing", "Public speaking"],
+            info: "Participate in debate club and mock trials. Focus on developing strong research and argumentation skills across all subjects.",
+            nextSteps: ["Join debate team", "Attend court sessions", "Read legal cases"]
+        },
+        arts: {
+            essential: ["Design", "English"],
+            recommended: ["Art History", "Media Studies", "Drama"],
+            skills: ["Creativity", "Visual communication", "Storytelling"],
+            info: "Build a strong portfolio of your work. Seek internships or volunteer opportunities in creative fields to gain practical experience.",
+            nextSteps: ["Create portfolio", "Enter art competitions", "Attend gallery openings"]
+        },
+        education: {
+            essential: ["English"],
+            recommended: ["Psychology", "Sociology", "Your teaching subject area"],
+            skills: ["Communication", "Patience", "Organization"],
+            info: "Gain experience working with children through tutoring or volunteer work. Develop deep knowledge in your intended teaching subjects.",
+            nextSteps: ["Volunteer with kids", "Start tutoring", "Observe classrooms"]
+        }
+    };
+
+    function suggestSubjects() {
+        const career = document.getElementById("career").value;
+        const resultsDiv = document.getElementById("career-results");
+        
+        if (!career) {
+            showAlert("Please select a career path to get recommendations");
+            return;
+        }
+        
+        if (career === "other") {
+            resultsDiv.innerHTML = `
+                <div class="career-card">
+                    <div class="card-header">
+                        <i class="icon">🌐</i>
+                        <h3>Custom Career Support</h3>
+                    </div>
+                    <div class="card-content">
+                        <p>For specialized or less common career pathways, we offer personalized guidance:</p>
+                        
+                        <div class="highlight-box">
+                            <h4>Our Career Services Include:</h4>
+                            <ul>
+                                <li>Individual career assessments</li>
+                                <li>Subject selection strategy sessions</li>
+                                <li>Industry mentor connections</li>
+                                <li>Alternative pathway planning</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="action-box">
+                            <button class="secondary-btn" onclick="location.href='mailto:careers@burnside.school.nz?subject=Career Pathway Inquiry'">
+                                Contact Career Advisor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        const pathway = careerPathways[career];
+        const careerName = document.getElementById("career").options[document.getElementById("career").selectedIndex].text;
+        
+        let html = `<div class="career-card">
+            <div class="card-header">
+                <i class="icon">📚</i>
+                <h3>${careerName} Pathway Guide</h3>
+            </div>
+            <div class="card-content">`;
+        
+        // Subjects section
+        html += `<div class="section">
+            <h4>Subject Recommendations</h4>
+            <div class="subject-grid">
+                <div class="subject-group">
+                    <h5>Essential Subjects</h5>
+                    <ul class="subject-list essential">`;
+        pathway.essential.forEach(subject => {
+            html += `<li>${subject}</li>`;
+        });
+        html += `</ul></div>`;
+        
+        html += `<div class="subject-group">
+                    <h5>Recommended Subjects</h5>
+                    <ul class="subject-list recommended">`;
+        pathway.recommended.forEach(subject => {
+            html += `<li>${subject}</li>`;
+        });
+        html += `</ul></div></div></div>`;
+        
+        // Skills section
+        html += `<div class="section">
+            <h4>Key Skills to Develop</h4>
+            <div class="skills-container">`;
+        pathway.skills.forEach(skill => {
+            html += `<span class="skill-tag">${skill}</span>`;
+        });
+        html += `</div></div>`;
+        
+        // Additional info
+        html += `<div class="section info-section">
+            <h4>Pathway Information</h4>
+            <p>${pathway.info}</p>
+        </div>`;
+        
+        // Next steps
+        html += `<div class="section next-steps">
+            <h4>Suggested Next Steps</h4>
+            <ul class="steps-list">`;
+        pathway.nextSteps.forEach(step => {
+            html += `<li>${step}</li>`;
+        });
+        html += `</ul></div>`;
+        
+        // Closing
+        html += `
+            <div class="section final-note">
+                <p>Remember to balance your subject choices with your interests and strengths. Schedule a career counseling session to create your personalized pathway plan.</p>
+            </div>
+            
+            <div class="action-box">
+                <button class="secondary-btn" onclick="location.href='mailto:careers@burnside.school.nz?subject=${careerName} Pathway Inquiry'">
+                    Get Personalized Advice
+                </button>
+            </div>
+        </div></div>`;
+        
+        resultsDiv.innerHTML = html;
+    }
+    
+    function showAlert(message) {
+        // You could replace this with a nicer modal or toast notification
+        alert(message);
+    }
+</script>
+{% endblock %} 

@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block title %}Subjects{% endblock %}
+{% block page_title %}Subject Information{% endblock %}
+
+{% block content %}
+<div class="subject-page">
+    <h1>Burnside High School - Subject Selection</h1>
+    
+    <div class="highlight">
+        <p><strong>📍 Location:</strong> Christchurch, New Zealand<br>
+        <strong>🏫 Type:</strong> State Co-Educational Secondary School (Years 9-13)<br>
+        <strong>🎓 Academic System:</strong> NCEA (National Certificate of Educational Achievement)</p>
+    </div>
+
+    <!-- Existing subject listing -->
+    <div subjects>
+        <h2>Subjects Offered</h2>
+        <p>Subjects vary by year level (Junior Years 9-10 & Senior Years 11-13). Here's a general breakdown:</p>
+    
+        <div class="subject-category">
+            <h3>English & Languages</h3>
+            <ul>
+                <li>English</li>
+                <li>English Language Learning (ELL)</li>
+                <li>Te Reo Māori</li>
+                <li>French</li>
+                <li>German</li>
+                <li>Japanese</li>
+                <li>Spanish</li>
+                <li>Latin</li>
+            </ul>
+        </div>
+    
+        <div class="subject-category">
+            <h3>Mathematics</h3>
+            <ul>
+                <li>Mathematics</li>
+                <li>Mathematics with Calculus</li>
+                <li>Mathematics with Statistics</li>
+            </ul>
+        </div>
+    
+        <div class="subject-category">
+            <h3>Sciences</h3>
+            <ul>
+                <li>Science (Junior)</li>
+                <li>Biology</li>
+                <li>Chemistry</li>
+                <li>Physics</li>
+                <li>Earth and Space Science</li>
+                <li>Agricultural and Horticultural Science</li>
+            </ul>
+        </div>
+    
+        <div class="subject-category">
+            <h3>Social Sciences</h3>
+            <ul>
+                <li>Social Studies (Junior)</li>
+                <li>Geography</li>
+                <li>History</li>
+                <li>Classical Studies</li>
+                <li>Economics</li>
+                <li>Accounting</li>
+                <li>Business Studies</li>
+                <li>Legal Studies</li>
+                <li>Psychology</li>
+                <li>Tourism</li>
+            </ul>
+        </div>
+    
+        <div class="subject-category">
+            <h3>Technology</h3>
+            <ul>
+                <li>Digital Technologies</li>
+                <li>Design and Visual Communication (Graphics)</li>
+                <li>Hard Technology (Wood, Metal)</li>
+                <li>Soft Technology (Textiles)</li>
+                <li>Food Technology</li>
+                <li>Hospitality</li>
+                <li>Engineering</li>
+            </ul>
+        </div>
+    
+        <div class="subject-category">
+            <h3>The Arts</h3>
+            <ul>
+                <li>Visual Art</li>
+                <li>Photography</li>
+                <li>Art History</li>
+                <li>Drama</li>
+                <li>Music</li>
+                <li>Dance</li>
+                <li>Media Studies</li>
+            </ul>
+        </div>
+    
+        <div class="subject-category">
+            <h3>Physical Education & Health</h3>
+            <ul>
+                <li>Physical Education</li>
+                <li>Health Education</li>
+                <li>Outdoor Education</li>
+                <li>Sports Science</li>
+            </ul>
+        </div>
+    
+        <div class="notice">
+            <p>💡 <strong>Note:</strong> Senior subjects (Years 11-13) may have prerequisites. 
+            Some subjects like Calculus and Physics require junior mathematics achievement.</p>
+        </div>
+    </div>
+
+   
+{% endblock %}

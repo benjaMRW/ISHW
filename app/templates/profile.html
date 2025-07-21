@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Profile{% endblock %}
+{% block page_title %}Your Profile{% endblock %}
+
+{% block content %}
+  <div class="Profile">
+  <div class="Profile-name">
+  <h2>Hello, {{ student.name }}!</h2>
+  <p><strong>Student Number:</strong> {{ student.student_number }}</p>
+  </div>
+  <!-- If you added extra fields like hobbies or email: -->
+  {% if student.hobbies %}
+    <p><strong>Hobbies:</strong> {{ student.hobbies }}</p>
+  {% endif %}
+
+  <div class="Profile-actions">
+    <a href="{{ url_for('logout') }}">
+      <button class="logout-profile">Log Out</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

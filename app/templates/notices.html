@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}School Notices{% endblock %}
+{% block page_title %}School Notices{% endblock %}
+
+{% block content %}
+<div class="notices-container">
+  {% if notices %}
+    {% for notice in notices %}
+    <div class="notice-card {{ 'important' if 'important' in notice.title.lower() else 'general' }}">
+        <div class="notice-header">
+            <div class="notice-meta">
+                {{ notice.date }}
+                {% if notice.is_liked %}
+                <span class="liked-badge">❤️ Liked</span>
+                {% endif %}
+            </div>
+            {% if 'user_id' in session %}
+            <button class="like-btn {% if notice.is_liked %}liked{% endif %}" 
+                    data-title="{{ notice.title }}" 
+                    data-date="{{ notice.date }}">
+                ❤️
+            </button>
+            {% endif %}
+        </div>
+        <h3 class="notice-title">{{ notice.title }}</h3>
+        <div class="notice-content">
+            {{ notice.content|safe }}
+        </div>
+        {% if notice.content and '@' in notice.content %}
+            <div class="notice-contact">
+                <strong>Contact:</strong> 
+                {% set email = notice.content.split('@')[0].split()[-1] + '@' + notice.content.split('@')[1].split()[0] %}
+                <a href="mailto:{{ email }}">{{ email }}</a>
+            </div>
+        {% endif %}
+        
+        {% if 'user_id' in session %}
+        <div class="notice-actions">
+            <button class="save-btn" data-notice-id="{{ loop.index }}">💾 Save</button>
+            <button class="share-btn" data-notice-id="{{ loop.index }}">↗️ Share</button>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="no-notices">No notices available at this time.</div>
+  {% endif %}
+</div>
+
+{% if 'user_id' in session %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Like functionality
+    document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const title = this.getAttribute('data-title');
+            const date = this.getAttribute('data-date');
+            
+            try {
+                const response = await fetch('/like_notice', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        date: date
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    this.classList.toggle('liked');
+                    // Update the liked badge visibility
+                    const badge = this.closest('.notice-card').querySelector('.liked-badge');
+                    if (badge) {
+                        badge.style.display = this.classList.contains('liked') ? 'inline-block' : 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+
+    // Save functionality (placeholder - you'll need to implement the backend)
+    document.querySelectorAll('.save-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const noticeId = this.getAttribute('data-notice-id');
+            alert('Save functionality will be implemented soon! Notice ID: ' + noticeId);
+        });
+    });
+
+    // Share functionality
+    document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const noticeCard = this.closest('.notice-card');
+            const title = noticeCard.querySelector('.notice-title').textContent;
+            const content = noticeCard.querySelector('.notice-content').textContent.substring(0, 100) + '...';
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: content,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const shareUrl = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(content + '\n\nRead more: ' + window.location.href)}`;
+                window.location.href = shareUrl;
+            }
+        });
+    });
+});
+</script>
+{% endif %}
+{% endblock %}

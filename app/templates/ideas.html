@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<body>
+    <div class="feedback-container">
+        <h1>{{ page_title }}</h1>
+        
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Feedback form -->
+        <form class="feedback-form" method="POST" action="/feedback">
+            <p>Leave feedback to help us improve the website:</p Raimi>
+            <div class="form-group">
+                <label for="student_number">Student Number:</label>
+                <input type="text" id="student_number" name="student_number" required>
+            </div>
+            <div class="form-group">
+                <label for="feedback">Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+
+    </div>
+</body>
+
+{% endblock %}
