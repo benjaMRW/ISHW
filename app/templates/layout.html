@@ -7,16 +7,29 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
-  <header class="header">
+<a class="button" href="/">
+  <header class="header" >
     <div class="top-section">
       <div class="logo-title">
-        <img src="{{ url_for('static', filename='image/BurnsideLogo.png') }}" alt="Burnside High School Logo" class="logo">
+        <img src="{{ url_for('static', filename='image/BurnsideLogo.png') }}" alt="Burnside High School Logo" class="logo" >
         <div class="site-title">{% block page_title %}Welcome{% endblock %}</div>
       </div>
       
     </div>
     <div>
+</a>
+{% if request.path != '/' %}
+<div class="auth-buttons">
+<a href="/" class="btn btn--secondary">Home</a>
+</div>
+{% endif %}
+{% if request.path != '/' and session.student_number %}
+<div class="auth-buttons">
+  <a href="/profile" class="btn btn--primary">profile</a>
+  <a href="{{ url_for('logout') }}" class="btn btn--secondary">Log out</a>
+  
+</div>
+{% endif %}
 {% if request.path == '/' and session.student_number %}
 <div class="auth-buttons">
   <a href="/profile" class="btn btn--primary">profile</a>
@@ -25,9 +38,7 @@
 {% elif request.path == '/' %}
   <div class="auth-buttons">
 
-  <div id="period-bar">
-  ⏳ Loading current period info...
-  </div>
+  
 
       <a href="/register" class="btn btn--primary">Register</a>
       <a href="/login" class="btn btn--secondary">Login</a>

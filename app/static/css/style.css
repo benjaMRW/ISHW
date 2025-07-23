@@ -81,6 +81,10 @@ top: 10px;
   font-weight: bold;
 }
 
+a{
+text-decoration: none;
+color: white;
+}
 /* ============================================= */
 /* NAVIGATION & BUTTONS */
 /* ============================================= */
@@ -854,3 +858,59 @@ width: 100%;
   letter-spacing: 0.5px;
   border-bottom: 2px solid #fff;
 }
+/* tutors */
+/* Tutors Page Styling */
+.tutor-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 0;
+  scroll-snap-type: x mandatory;
+}
+
+.tutor-card {
+  scroll-snap-align: start;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  min-width: 300px; /* Increased width */
+  max-width: 320px;
+  word-wrap: break-word; /* Allows long words to wrap */
+  overflow-wrap: break-word;
+  white-space: normal; /* Allows text to wrap */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease;
+  color: var(--text-dark);
+}
+
+.tutor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.tutor-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+  color: var(--header-bg);
+}
+
+.tutor-card p {
+  margin: 6px 0;
+  font-size: 0.9em;
+  color: #444;
+  word-break: break-word; /* ensures long email/subject lists don't overflow */
+}
+
+.tutor-contact {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--primary-color);
+  font-style: italic;
+  color: #0066cc;
+  font-size: 0.85em;
+}
+

@@ -17,7 +17,7 @@ import time
 from webdriver_manager.chrome import ChromeDriverManager
 import folium
 from folium.plugins import Search
-from app.models import db, Student, Subject, StudentSubject, Idea, Product
+from app.models import db, Student,  Idea, Product, Tutor
 
 
 
@@ -75,33 +75,42 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def reg():
     alreadyexist = False
-
     if request.method == 'POST':
         student_number = request.form['student_number']
         password = request.form['password']
-        name = request.form['student_name']
+        name = request.form['student_name'] + ' ' + request.form.get('student_lastname', '')
         email = request.form['email']
+        is_tutor = request.form.get('is_tutor') == 'on'
+        subjects = request.form.get('subjects') if is_tutor else None
+        year = request.form.get('year') if is_tutor else None
         # Check if student number already exists
         existing_student = Student.query.filter_by(student_number=student_number).first()
-
         if existing_student:
             alreadyexist = True
         else:
+            if is_tutor and (not subjects or not year):
+                flash('Please provide subjects and year for tutor registration.', 'error')
+                return render_template('register.html', page_title='Register', alreadyexist=alreadyexist)
             # Create and save the student
-            new_student = Student(student_number=student_number, password=password, name=name, email=email)
+            new_student = Student(student_number=student_number, password=password, name=name.strip(), email=email)
             db.session.add(new_student)
             db.session.commit()
-
+            # If tutor, create Tutor record
+            if is_tutor:
+                tutor = Tutor(student_id=new_student.id, subjects=subjects, year=year)
+                db.session.add(tutor)
+                db.session.commit()
             # Log them in
             session['student_number'] = student_number
-            session['name'] = name
-
+            session['name'] = name.strip()
             return redirect(url_for('home'))
-
     return render_template('register.html', page_title='Register', alreadyexist=alreadyexist)
 
+@app.route('/tutors')
+def tutors():
+    all_tutors = Tutor.query.all()  # Get all tutors from the Tutor table
+    return render_template('tutors.html', tutors=all_tutors, page_title="Available Tutors")
 
-  
 
 
 
