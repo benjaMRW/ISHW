@@ -305,78 +305,63 @@ width: 100%;
   font-size: 0.9em;
 }
 
-/* ============================================= */
-/* MAP STYLES (UPDATED) */
-/* ============================================= */
+/* Map container styling */
 .map-page-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 5px; /* Minimized padding to reduce empty space */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 0;
+  background: #f8f9fa;
 }
 
 .map-container {
-  width: 100%;
-  height: 85vh; /* Increased to fill more of the viewport */
-  min-height: 500px; /* Adjusted for smaller screens */
-  border-radius: 12px; /* Larger radius for a softer look */
-  overflow: hidden;
-  border: 4px solid var(--primary-color); /* Thicker border for emphasis */
-  background: rgba(255, 255, 255, 0.15); /* Slightly stronger background for contrast */
-  position: relative; /* For legend positioning */
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px;
+  position: relative;
 }
 
+/* Legend styling */
 .map-legend {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 8px;
-  background: rgba(0, 43, 22, 0.9); /* Slightly transparent version of --header-bg for readability */
-  border-radius: 6px;
-  text-align: center;
-  font-size: 0.85em; /* Smaller text for compactness */
-  z-index: 1000; /* Ensure it stays above the map */
-}
-
-.legend-items {
+  margin-top: 24px;
+  padding: 16px 24px;
+  background: #f1f3f6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   display: flex;
+  gap: 32px;
   justify-content: center;
-  gap: 10px; /* Tighter gap */
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 4px; /* Tighter spacing */
+  gap: 10px;
+  font-size: 1rem;
+  color: #333;
 }
 
 .legend-color {
-  width: 10px; /* Smaller color box */
-  height: 10px; /* Smaller color box */
-  border-radius: 2px; /* Subtle rounding */
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  margin-right: 6px;
+  border: 2px solid #e0e0e0;
 }
 
-.legend-color.academic { background: #00a86b; }
-.legend-color.sports { background: #ff6b6b; }
-.legend-color.common { background: #4d79ff; }
+/* Custom colors for legend */
+.legend-color.academic {
+  background: #34c759;
+}
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .map-page-container {
-    padding: 2px; /* Minimal padding on mobile */
-  }
-  .map-container {
-    height: 75vh; /* Adjusted for mobile screens */
-    min-height: 400px;
-  }
-  .map-legend {
-    font-size: 0.8em; /* Smaller text on mobile */
-    bottom: 5px;
-  }
-  .legend-items {
-    flex-direction: column;
-    gap: 5px; /* Tighter vertical spacing */
-  }
+.legend-color.sports {
+  background: #ffb300;
+}
+
+.legend-color.common {
+  background: #4f8cff;
 }
 
 /* ============================================= */
@@ -858,16 +843,28 @@ width: 100%;
   letter-spacing: 0.5px;
   border-bottom: 2px solid #fff;
 }
-/* tutors */
+
 /* Tutors Page Styling */
 .tutor-list {
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
   gap: 20px;
-  overflow-x: auto;
-  padding: 10px 0;
-  scroll-snap-type: x mandatory;
+  padding: 20px 0;
 }
+
+@media (max-width: 900px) {
+  .tutor-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .tutor-list {
+    grid-template-columns: 1fr; /* 1 column for phones */
+  }
+}
+
+
 
 .tutor-card {
   scroll-snap-align: start;
@@ -914,3 +911,129 @@ width: 100%;
   font-size: 0.85em;
 }
 
+/* ============================================= */
+/* CHAT ASSISTANT STYLES */
+/* ============================================= */
+.chat-page {
+    padding: 40px 20px;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.chat-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--white);
+    font-size: 2rem;
+}
+
+.chat-form {
+    margin-bottom: 30px;
+}
+
+.chat-form input[type="text"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.chat-form input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chat-submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.chat-submit-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.answer-container {
+    background-color: rgba(0, 168, 107, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.answer-container h3 {
+    color: var(--white);
+    margin-top: 0;
+}
+
+.answer-container p {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.suggestions h3 {
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.suggestion-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.suggestion-list a {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.suggestion-list a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .chat-container {
+        padding: 20px;
+    }
+    
+    .chat-title {
+        font-size: 1.5rem;
+    }
+    
+    .suggestion-list {
+        flex-direction: column;
+    }
+    
+    .suggestion-list a {
+        width: 100%;
+        text-align: center;
+    }
+}

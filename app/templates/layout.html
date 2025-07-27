@@ -18,11 +18,7 @@
     </div>
     <div>
 </a>
-{% if request.path != '/' %}
-<div class="auth-buttons">
-<a href="/" class="btn btn--secondary">Home</a>
-</div>
-{% endif %}
+
 {% if request.path != '/' and session.student_number %}
 <div class="auth-buttons">
   <a href="/profile" class="btn btn--primary">profile</a>

@@ -6,22 +6,20 @@
 {% block content %}
 <div class="tutors-container">
   <h1>Available Tutors</h1>
-
   {% if tutors %}
     <ul class="tutor-list">
       {% for tutor in tutors %}
         <li class="tutor-card">
           <h3>{{ tutor.student.name }}</h3>
           <p><strong>Subjects:</strong> {{ tutor.subjects }}</p>
-          <p><strong>Year:</strong> {{ tutor.year }}</p>
-          {% if tutor.student.email %}
-            <p><strong>Email:</strong> {{ tutor.student.email }}</p>
-          {% endif %}
+          <p><strong>level:</strong> {{ tutor.year }}</p>
+          <p class="tutor-contact"><strong>Email:</strong> {{ tutor.student.email }}</p>
         </li>
       {% endfor %}
     </ul>
-  {% else %}
+  {% else  %}
     <p>No tutors available yet.</p>
   {% endif %}
 </div>
+
 {% endblock %}

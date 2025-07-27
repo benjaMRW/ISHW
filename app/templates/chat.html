@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="chat-page container">
+    <div class="chat-container">
+        <h1 class="chat-title">School AI Assistant</h1>
+        
+        <form method="post" class="chat-form">
+            <div class="form-group">
+                <input type="text" name="question" placeholder="e.g. Can I wear a hoodie? What's the attendance policy?" required>
+            </div>
+            <button type="submit" class="chat-submit-btn">
+                Ask the AI
+            </button>
+        </form>
+        
+        {% if answer %}
+            <div class="answer-container">
+                <h3>Answer:</h3>
+                <p>{{ answer }}</p>
+            </div>
+        {% endif %}
+        
+        <div class="suggestions">
+            <h3>Try asking:</h3>
+            <ul class="suggestion-list">
+                <li><a href="#" onclick="setQuestion(this)">What's the dress code?</a></li>
+                <li><a href="#" onclick="setQuestion(this)">When is the next parent-teacher conference?</a></li>
+                <li><a href="#" onclick="setQuestion(this)">What time does school start?</a></li>
+                <li><a href="#" onclick="setQuestion(this)">Can I bring my laptop to school?</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setQuestion(element) {
+        event.preventDefault();
+        const question = element.textContent;
+        document.querySelector('input[name="question"]').value = question;
+    }
+</script>
+{% endblock %}

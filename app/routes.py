@@ -18,7 +18,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 import folium
 from folium.plugins import Search
 from app.models import db, Student,  Idea, Product, Tutor
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage
 
+import openai
+from dotenv import load_dotenv
+load_dotenv()
+ 
 
 
 
@@ -30,6 +35,27 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Load the index
+if os.path.exists("index_store"):
+    storage_context = StorageContext.from_defaults(persist_dir="index_store")
+    index = load_index_from_storage(storage_context)
+else:
+    documents = SimpleDirectoryReader("app/docs").load_data()
+    index = VectorStoreIndex.from_documents(documents)
+    index.storage_context.persist("index_store")
+
+query_engine = index.as_query_engine()
+
+@app.route("/chat", methods=["GET", "POST"])
+def chatbot():
+    answer = ""
+    if request.method == "POST":
+        question = request.form["question"]
+        response = query_engine.query(question)
+        answer = str(response)
+    return render_template("chat.html", answer=answer)
 
 @app.route('/')
 def home():
