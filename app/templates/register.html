@@ -5,15 +5,15 @@
   <form class="registration-form" method="POST" action="/register">
     <div class="form-group">
       <label for="student_number">Student Number:</label>
-      <input type="text" id="student_number" name="student_number" required>
+      <input type="number" id="student_number" name="student_number" placeholder="eg. 12345" required>
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" name="email" placeholder="your_email@burnside.school.nz" required>
     </div>
     <div class="form-group">
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" name="password" min="6" max="20" placeholder="min 6-max 20 Characters" required>
     </div>
     <div class="form-group">
       <label for="student_name">First Name:</label>
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
       <label for="student_lastname">Last Name:</label>
-      <input type="text" id="student_lastname" name="student_lastname">
+      <input type="text" id="student_lastname" name="student_lastname" required>
     </div>
     <div class="form-group">
       <label for="is_tutor">
@@ -41,7 +41,7 @@
     <button type="submit" class="submit-btn">Register</button>
   </form>
   {% if alreadyexist %}
-  <p class="message error">This student number already exists.</p>
+  <p class="message_error">This student number already exists.</p>
   {% endif %}
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -56,5 +56,14 @@
     const isTutor = document.getElementById('is_tutor').checked;
     document.getElementById('tutor_fields').style.display = isTutor ? 'block' : 'none';
   }
+
+
+  document.getElementById('textInput').addEventListener('input', function () {
+    this.value = this.value.replace(
+      /([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF])+/g,
+      ''
+    );
+  });
 </script>
+
 {% endblock %}

@@ -5,6 +5,7 @@
 {% block page_title %}Student Login{% endblock %}
 
 {% block content %}
+<hr/>
 <div class="Login-container">
   <form class="login-form" method="POST" action="/login">
     <div class="form-group">
@@ -20,8 +21,10 @@
   </form>
 </div>
 
+
+<p> <hr/> </p>
 {% if error %}
-  <p>Invalid login. Try again or create one account<a href="/register">register</a> </a>.</p>
+  <p>Invalid login. Try again or create one account <a href="/register" class="button">register</a>.</p>
 {% endif %}
 {% endblock %}
 

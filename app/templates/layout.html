@@ -7,17 +7,22 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-<a class="button" href="/">
+
   <header class="header" >
+
     <div class="top-section">
       <div class="logo-title">
+        
         <img src="{{ url_for('static', filename='image/BurnsideLogo.png') }}" alt="Burnside High School Logo" class="logo" >
         <div class="site-title">{% block page_title %}Welcome{% endblock %}</div>
+        {% if request.path != '/' %}
+        <a class="back" href="/"> 🔄</a>
+        {% endif %}
       </div>
       
     </div>
     <div>
-</a>
+
 
 {% if request.path != '/' and session.student_number %}
 <div class="auth-buttons">
@@ -71,32 +76,7 @@
     }
   }
 
-async function updatePeriodBar() {
-    try {
-      const res = await fetch("/get_next_period_info");
-      const data = await res.json();
 
-      const bar = document.getElementById("period-bar");
-
-      if (!data.current_period && !data.next_period) {
-        bar.textContent = "🎓 No school right now";
-        return;
-      }
-
-      const current = data.current_period || "Free Time";
-      const next = data.next_period || "End of Day";
-
-      const minsLeft = Math.floor((data.time_until_current_period_ends_seconds || 0) / 60);
-      const secsLeft = Math.floor((data.time_until_current_period_ends_seconds || 0) % 60);
-
-      bar.textContent = `🕒 ${current} — ends in ${minsLeft}m ${secsLeft}s | Next: ${next}`;
-    } catch (err) {
-      console.error("Failed to load period info:", err);
-    }
-  }
-
-  updatePeriodBar();
-  setInterval(updatePeriodBar, 30000); // update every 30 seconds
 </script>
 </body>
 </html>
